@@ -1,0 +1,84 @@
+# +---------------------------------------------------------------------------+
+# |                                                                           |
+# | makefile.txt                                                              |
+# |                                                                           |
+# +---------------------------------------------------------------------------+
+
+# [File Names]-----------------------------------------------------------------
+
+SRC_FILES		= ioctl_bf.c getopt.c ioctl_manipulation.c ihm.c utilities.c
+OBJ_FILES		= ioctl_bf.obj getopt.obj ioctl_manipulation.obj ihm.obj utilities.obj
+
+DEBUG_NAME 		= ioctlbf
+RELEASE_NAME 	= ioctlbf
+
+# [Directories]----------------------------------------------------------------
+
+API_DIR1		= "E:\Program Files\Microsoft Visual Studio 10.0\VC"
+API_DIR2		= "C:\Program Files\Microsoft SDKs\Windows\v7.0A"
+OUT_DIR			= ..\bin
+
+# [Include Files]--------------------------------------------------------------
+
+API_INC			= /I $(API_DIR1)\include
+API_INC2		= /I $(API_DIR2)\Include
+APP_USR_INC		= /I "inc"
+APP_USR_INC2	= /I "."
+INCLUDES		= $(API_INC) $(API_INC2) $(APP_USR_INC) $(APP_USR_INC2)
+
+# [Library Paths]--------------------------------------------------------------
+
+LIBS1			= /LIBPATH:$(API_DIR1)\lib
+LIBS2			= /LIBPATH:$(API_DIR2)\Lib
+LIBS			= $(LIBS1) $(LIBS2)
+
+# [Tools]----------------------------------------------------------------------
+
+CC 				= cl.exe
+LINK 			= link.exe
+
+# [Tool arguments]-------------------------------------------------------------
+
+CFLAGS 				= /c /nologo /FAcs $(INCLUDES) /W4 
+CC_DEBUG_FLAGS		= /Od /Fd$(DEBUG_NAME) /ZI 
+CC_RELEASE_FLAGS	= /O1 /DLOG_OFF
+
+LNK_FLAGS			= /NOLOGO $(LIBS) /SUBSYSTEM:CONSOLE /VERSION:1.0 /WX
+LNK_DEBUG_FLAGS 	= /DEBUG /OUT:$(OUT_DIR)\$(DEBUG_NAME).EXE
+LNK_RELEASE_FLAGS 	= /OUT:$(OUT_DIR)\$(RELEASE_NAME).EXE
+
+# [Inference Rules]------------------------------------------------------------
+
+# If the BLDTYPE macro is defined, we want to include debug info
+
+!IFDEF BLDTYPE
+.c.obj::
+	$(CC) $(CFLAGS) $(CC_DEBUG_FLAGS) $<
+!ELSE
+.c.obj::
+	$(CC) $(CFLAGS) $(CC_RELEASE_FLAGS) $<
+!ENDIF
+
+# [Description Blocks]---------------------------------------------------------
+
+# .cod		listing file (assembly, machine code)	
+# .obj		object code
+# .exe		final product
+# .pdb		debug symbols							(debug build only)
+# .idb		VC++ Minimum Rebuild Dependency File 	(debug build only)		
+# .ilk		incremental link file					(debug build only)
+
+clean:
+	del *.cod				
+	del *.obj				
+	del *.pdb										
+	del *.idb			
+    del $(OUT_DIR)\*.pdb	
+	del $(OUT_DIR)\*.ilk
+    del $(OUT_DIR)\*.exe
+    
+debug: $(OBJ_FILES)
+	$(LINK) $(LNK_FLAGS) $(LNK_DEBUG_FLAGS) $(OBJ_FILES)
+
+release: $(OBJ_FILES)
+	$(LINK) $(LNK_FLAGS) $(LNK_RELEASE_FLAGS) $(OBJ_FILES)
