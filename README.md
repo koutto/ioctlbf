@@ -1,9 +1,9 @@
 IOCTLbf
 ====
 
-This is a project from back in tha dayz, in 2011-2012. Kinda dirty code, but worked for me to find several bugs in Windows Drivers.
-Here is one of them: https://www.exploit-db.com/exploits/17902/
-More info about this tool and kernel exploitation at: http://poppopret.blogspot.fr/
+This is a project from back in tha dayz, in 2011-2012. Kinda dirty code, but worked for me to find several bugs in Windows Drivers.<br />
+Here is one of them: https://www.exploit-db.com/exploits/17902/<br />
+More info about this tool and kernel exploitation at: http://poppopret.blogspot.fr/<br />
 For french people, an article was also written in _MISC Magazine #62_: http://connect.ed-diamond.com/MISC/MISC-062/De-la-decouverte-d-une-vulnerabilite-dans-un-driver-Windows-a-l-elevation-de-privileges
 
 Table of contents
